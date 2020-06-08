@@ -1,0 +1,21 @@
+{
+    "name": "kba-team/php-backtrace",
+    "description": "Extendable class holding the PHP backtrace minus the last n steps to avoid showing the traces of logging.",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^5.5|7.*",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "kbATeam\\PhpBacktrace\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\kbATeam\\PhpBacktrace\\": "tests"
+        }
+    }
+}
