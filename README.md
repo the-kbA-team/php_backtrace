@@ -46,7 +46,8 @@ Remove __DIR__:
 ### Example 2
 
 Create an Instance of `ClassicBacktrace` and removing the last two steps from
-the backtrace. Output is the same as in example 1.
+the backtrace.   
+The output is the same as in example 1.
 
 ```php
 <?php
