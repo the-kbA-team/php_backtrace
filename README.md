@@ -1,5 +1,11 @@
 # PHP Backtrace
 
+[![License: MIT][license-mit]](LICENSE)
+[![Packagist Version][packagist-badge]][packagist]
+[![Build Status][build-status-master]][travis-ci]
+[![Maintainability][maintainability-badge]][maintainability]
+[![Test Coverage][coverage-badge]][coverage]
+
 Extendable class holding the PHP backtrace minus the last n steps to avoid
 showing the traces of logging.
 
@@ -126,3 +132,13 @@ class: Foo, line: 13
 Function and params of trace step before the last:
 function: bar, params: 1, 10.2
 ```
+
+[license-mit]: https://img.shields.io/badge/license-MIT-blue.svg
+[packagist-badge]: https://img.shields.io/packagist/v/kba-team/php-backtrace
+[packagist]: https://packagist.org/packages/kba-team/php-backtrace
+[travis-ci]: https://travis-ci.org/the-kbA-team/php_backtrace
+[build-status-master]: https://api.travis-ci.org/the-kbA-team/php_backtrace.svg?branch=master
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/105f3039fdfe094a0cff/maintainability
+[maintainability]: https://codeclimate.com/github/the-kbA-team/php_backtrace/maintainability
+[coverage-badge]: https://api.codeclimate.com/v1/badges/105f3039fdfe094a0cff/test_coverage
+[coverage]: https://codeclimate.com/github/the-kbA-team/php_backtrace/test_coverage
