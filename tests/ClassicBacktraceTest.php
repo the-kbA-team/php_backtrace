@@ -14,6 +14,7 @@ class ClassicBacktraceTest extends TestCase
 {
     /**
      * Test the inheritance chain.
+     * @return void
      */
     public function testInheritance()
     {
@@ -24,19 +25,18 @@ class ClassicBacktraceTest extends TestCase
 
     /**
      * Test classic trace string creation.
+     * @return void
      */
     public function testClassicString()
     {
         $trace1 = ClassicBacktrace::classicString(null, '/app');
-        static::assertInternalType('string', $trace1);
+        static::assertIsString($trace1);
         $steps = explode(PHP_EOL, $trace1);
-        static::assertInternalType('array', $steps);
-        static::assertCount(11, $steps, $trace1);
+        static::assertIsArray($steps);
+        static::assertCount(12, $steps, $trace1);
         //Reflection has no file or line, just a class and its method.
-        static::assertSame(
-            '#0  ' . __CLASS__ . '->' . __FUNCTION__ . '()',
-            $steps[0]
-        );
+        $regexp = sprintf("/^#0\s+%s->%s\(\) called at \[.+\]$/", preg_quote(__CLASS__), preg_quote(__FUNCTION__));
+        static::assertMatchesRegularExpression($regexp, $steps[0]);
         $trace2 = (string)(new ClassicBacktrace(null, '/app'));
         static::assertSame($trace1, $trace2);
     }

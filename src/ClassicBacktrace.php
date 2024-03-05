@@ -29,7 +29,7 @@ class ClassicBacktrace extends Backtrace
     {
         $offset = (int) static::normalizeNumber($offset);
         $offset++; //this method adds to offset
-        $trace = new static($offset, $fileRoot);
+        $trace = new self($offset, $fileRoot);
         return sprintf('%s', $trace->getClassicString());
     }
 
@@ -41,6 +41,7 @@ class ClassicBacktrace extends Backtrace
     public function getClassicString()
     {
         $result = [];
+        /** @var array<mixed> $step */
         foreach ($this->backtrace as $pos => $step) {
             $result[] = sprintf(
                 '#%u%s %s%s',
@@ -54,7 +55,7 @@ class ClassicBacktrace extends Backtrace
     }
 
     /**
-     * @param array $step
+     * @param array<mixed> $step
      * @return string
      */
     private function fileAndLine(array $step)

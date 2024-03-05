@@ -16,7 +16,7 @@ class Backtrace
     const MIN_OFFSET = 1;
 
     /**
-     * @var array
+     * @var array<int, array<mixed>>
      */
     public $backtrace;
 
@@ -44,7 +44,7 @@ class Backtrace
      * Remove the given number of steps from the backtrace. The minimum number
      * of steps will always be removed.
      * @param int|null $offset
-     * @return array
+     * @return array<int, array<mixed>>
      */
     private function sliceBacktrace($offset)
     {
@@ -66,6 +66,7 @@ class Backtrace
         if (is_string($offset) && !is_numeric($offset)) {
             return null;
         }
+        /** @var int $offset */
         return (int)$offset;
     }
 
@@ -90,6 +91,7 @@ class Backtrace
     /**
      * Remove the root path from the file paths of the backtrace.
      * @param string $fileRoot
+     * @return void
      */
     private function removeFileRootFromPath($fileRoot)
     {
@@ -109,7 +111,7 @@ class Backtrace
     }
 
     /**
-     * @param array $step
+     * @param array<mixed> $step
      * @return string
      */
     protected function funcString(array $step)
@@ -123,15 +125,17 @@ class Backtrace
                 $this->funcArgsString($step)
             );
         }
+
         return sprintf(
             '%s(%s)',
+            /** @phpstan-ignore-next-line */
             $step['function'],
             $this->funcArgsString($step)
         );
     }
 
     /**
-     * @param array $step
+     * @param array<mixed> $step
      * @return string
      */
     protected function funcArgsString(array $step)
@@ -171,7 +175,7 @@ class Backtrace
     /**
      * @param int|null $pos
      * @param string|null $attribute
-     * @return array|string|int|object|null
+     * @return array<mixed>|string|int|object|null|mixed
      */
     public function getStep($pos = null, $attribute = null)
     {
@@ -191,7 +195,7 @@ class Backtrace
     /**
      * Get the last step of the backtrace. Most likely where the error occurred.
      * @param string|null $attribute
-     * @return array|int|object|string|null
+     * @return array<mixed>|int|object|string|null|mixed
      */
     public function lastStep($attribute = null)
     {
