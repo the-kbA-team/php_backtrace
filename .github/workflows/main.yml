@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Check PHP syntax of config/phinx.php
+      - name: Check PHP syntax
         run: php -l src/ tests/
 
   phpunit:
