@@ -14,11 +14,12 @@ class BacktraceTest extends TestCase
 {
     /**
      * Test the default constructor settings.
+     * @return void
      */
     public function testConstructorDefaults()
     {
         $trace = new Backtrace();
-        static::assertSame(11, $trace->countSteps());
+        static::assertSame(12, $trace->countSteps());
         static::assertSame(__CLASS__, $trace->getStep(0, 'class'));
         static::assertSame(__FUNCTION__, $trace->getStep(0, 'function'));
         static::assertSame(__CLASS__, $trace->lastStep('class'));
@@ -27,27 +28,28 @@ class BacktraceTest extends TestCase
 
     /**
      * Test whether an offset actually removes a trace step.
+     * @return void
      */
     public function testOffset()
     {
         $trace = new Backtrace(1);
-        static::assertSame(10, $trace->countSteps());
-        static::assertSame('ReflectionMethod', $trace->getStep(0, 'class'));
-        static::assertSame('invokeArgs', $trace->getStep(0, 'function'));
+        static::assertSame(11, $trace->countSteps());
+        static::assertSame('PHPUnit\Framework\TestCase', $trace->getStep(0, 'class'));
+        static::assertSame('runTest', $trace->getStep(0, 'function'));
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public static function provideInvalidOffsets()
     {
         return [
-            [-1, 12],
-            [null, 12],
-            ['abc', 12],
-            [0.7, 12],
-            [[], 12],
-            [new \stdClass(), 12]
+            [-1, 13],
+            [null, 13],
+            ['abc', 13],
+            [0.7, 13],
+            [[], 13],
+            [new \stdClass(), 13]
         ];
     }
 
@@ -56,6 +58,7 @@ class BacktraceTest extends TestCase
      * @param int $offset
      * @param int $expectedSteps
      * @dataProvider provideInvalidOffsets
+     * @return void
      */
     public function testInvalidOffsets($offset, $expectedSteps)
     {
@@ -65,6 +68,7 @@ class BacktraceTest extends TestCase
 
     /**
      * Test whether removing a file root works.
+     * @return void
      */
     public function testFileRoot()
     {
@@ -77,14 +81,15 @@ class BacktraceTest extends TestCase
 
     /**
      * Test getting a single test step.
+     * @return void
      */
     public function testGetStepPos()
     {
         $trace = new Backtrace();
-        //whithout an attribute, the whole trace step will be returned.
-        static::assertInternalType('array', $trace->getStep(0));
-        //The first trace step has no file, because it's a reflection
-        static::assertNull($trace->getStep(0, 'file'));
+        //Without an attribute, the whole trace step will be returned.
+        static::assertIsArray($trace->getStep(0));
+        //The first trace step a file
+        static::assertNotNull($trace->getStep(0, 'file'));
         //There is no pos -1.
         static::assertNull($trace->getStep(-1, 'function'));
         //There is no pos after the last.
